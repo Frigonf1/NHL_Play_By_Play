@@ -29,7 +29,6 @@ site-packages/
 *.orig
 
 # Data files
-data/
 *.json
 
 # Images
