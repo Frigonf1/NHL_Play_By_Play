@@ -28,7 +28,10 @@ def extract_game_ids(team_abbr: str, year: int) -> list:
     game_ids = []
 
     for game in schedule_data.get("games", []):
-        game_ids.append(game.get("id"))
+
+        # Only include regular season and playoff games
+        if game.get("gameType") in [2, 3]:
+            game_ids.append(game.get("id"))
 
     return game_ids
 
