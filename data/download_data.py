@@ -1,3 +1,4 @@
+import json
 import tqdm
 import requests
 import os
@@ -66,6 +67,4 @@ def download_data(team_abbr: str, year: int, save_path: Path):
 
     # Save the aggregated data to the specified path
     with open(save_path, 'w') as f:
-        import json
-        json.dump(all_game_data, f)
-    
+        json.dump(all_game_data, f, indent=2)
