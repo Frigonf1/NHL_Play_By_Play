@@ -1,0 +1,48 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+# Python cache and packages
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Virtual environments (common names)
+.venv/
+**/.venv/
+*.venv
+
+
+# Site-packages (installed libraries)
+Lib/
+lib/
+site-packages/
+*.dist-info/
+*.egg-info/
+*.orig
+
+# Data files
+data/
+*.json
+
+# Images
+*.png
+*.svg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
