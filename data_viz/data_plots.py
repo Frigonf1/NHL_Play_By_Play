@@ -21,3 +21,14 @@ def plot_shot_totals(shots_df: 'pd.DataFrame', team_abbr: str, year: int) -> Non
     plt.legend(title='Is Goal', labels=['Miss', 'Goal'])
     plt.tight_layout()
     plt.show()
+
+    # Second plot that graphs the conversion rate for each shot type
+    plt.figure(figsize=(12, 6))
+    conversion_rates = shots_df.groupby('shot_type')['is_goal'].mean().reset_index()
+    sns.barplot(data=conversion_rates, x='shot_type', y='is_goal', palette='Set3')
+    plt.title(f'Shot Conversion Rates by Type for {team_abbr} in {year}-{year+1} Season')
+    plt.xlabel('Shot Type')
+    plt.ylabel('Conversion Rate')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
