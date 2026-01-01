@@ -32,3 +32,4 @@ def plot_shot_totals(shots_df: 'pd.DataFrame', team_abbr: str, year: int) -> Non
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
