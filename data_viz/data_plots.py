@@ -52,7 +52,7 @@ def plot_shot_heatmap(shots_df: 'pd.DataFrame', team_abbr: str, year: int) -> No
         alpha=0.9
     )
 
-    # 2) Load rink image (.jpg) and create transparency for "ice"
+    # 2) Load rink image and create transparency for ice surface 
     rink = plt.imread(RINK_IMG_PATH)
 
     # Convert to float in [0,1] if needed
@@ -63,7 +63,7 @@ def plot_shot_heatmap(shots_df: 'pd.DataFrame', team_abbr: str, year: int) -> No
     alpha = np.ones((rink.shape[0], rink.shape[1], 1), dtype=rink.dtype)
     rink_rgba = np.concatenate([rink, alpha], axis=2)
 
-    # Make near-white pixels transparent (tweak threshold if needed)
+    # Make near-white pixels transparent 
     white_thresh = 0.95
     mask = (
         (rink_rgba[..., 0] > white_thresh) &
