@@ -1,5 +1,5 @@
 from pipeline.download_data import download_data, create_shots_dataframe
-from data_viz.data_plots import plot_shot_totals
+from data_viz.data_plots import plot_shot_totals, plot_shot_heatmap 
 from pathlib import Path
 import json
 
@@ -17,4 +17,5 @@ if __name__ == "__main__":
     shots_df = create_shots_dataframe(all_game_data, team_abbr, year)
     print(shots_df.head())
     
-    plot_shot_totals(shots_df, team_abbr, year)
+    # plot_shot_totals(shots_df, team_abbr, year)
+    plot_shot_heatmap(shots_df, team_abbr, year)
