@@ -30,6 +30,7 @@ site-packages/
 
 # Data files
 *.json
+*.csv
 
 # Images
 *.png
