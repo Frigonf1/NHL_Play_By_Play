@@ -79,7 +79,7 @@ def extract_shots_from_game(game_data: dict) -> list:
     Extracts plays that are shots on goal, missed shots, or goals
     from a single game's play-by-play data.
     """
-    shot_types = {"shot-on-goal", "missed-shot", "goal"}
+    shot_types = {"shot-on-goal", "missed-shot", "blocked-shot", "goal"}
     shots = []
 
     for play in game_data.get("plays", []):
@@ -157,6 +157,7 @@ def create_shots_dataframe(all_game_data: list, team_abbr: str, year: int) -> 'p
                 "period_time": shot.get("timeInPeriod", ""),
                 "team_id": shot.get("details", {}).get("eventOwnerTeamId", ""),
                 "team_abbr": team_lookup.get(shot.get("details", {}).get("eventOwnerTeamId", ""), ""),
+                "shot_type_desc": shot.get("typeDescKey", ""),
                 "is_goal": shot.get("typeDescKey") == "goal",
                 "x_coord": shot.get("details", {}).get("xCoord"),
                 "y_coord": shot.get("details", {}).get("yCoord"),
