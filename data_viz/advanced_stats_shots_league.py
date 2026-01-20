@@ -311,7 +311,7 @@ if __name__ == "__main__":
     # Appliquer le masquage
     Z0_masked = mask_below_threshold(Z0, threshold).tolist()
 
-    # --- Fond glace 
+    # Fond glace 
     BASE_DIR = Path(__file__).resolve().parent.parent
     RINK_PATH = BASE_DIR/"assets"/"half_rink.png" 
 
@@ -323,7 +323,7 @@ if __name__ == "__main__":
 
     fig = go.Figure()
 
-    # 1) Surface remplie 
+    # Surface remplie 
     fig.add_trace(
         go.Contour(
             x=x, y=y, z=Z0_masked,
@@ -343,7 +343,7 @@ if __name__ == "__main__":
         )
     )
 
-    # 2) Contours lignes par-dessus 
+    # Contours lignes par-dessus 
     fig.add_trace(
         go.Contour(
             x=x, y=y, z=Z0_masked,
