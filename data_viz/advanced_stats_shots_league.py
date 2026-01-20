@@ -136,7 +136,6 @@ def compute_team_5v5_seconds(
 
     return total
 
-
 # Fonction pour calculer la densité de tirs par 60 minutes à l'aide de KDE
 def kde_surface_shots_per_60(
     df,
@@ -171,6 +170,7 @@ def kde_surface_shots_per_60(
     Z_60 = Z * (3600.0 / float(seconds_5v5))
     return X, Y, Z_60
 
+# Fonction principale pour calculer la KDE de la ligue 
 def compute_league_kde(year):
     teams = get_league_team_abbrs(NHLClient())
     league_shots_df = create_league_shots_dataframe(year)
@@ -233,6 +233,7 @@ def compute_league_kde(year):
         "Z_diff": Z_diff_60_dict,
     }
 
+# Fonction pour charger ou calculer et mettre en cache les résultats 
 def load_or_compute_league_kde(year, force=False):
     BASE_DIR = Path(__file__).resolve().parent.parent
     cache_dir = BASE_DIR / "data" / "cache"
@@ -425,4 +426,3 @@ if __name__ == "__main__":
 
     fig.show()
     # fig.write_html("shot_diff_contours_dropdown.html", auto_open=True)
-
