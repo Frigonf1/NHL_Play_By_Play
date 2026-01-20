@@ -25,8 +25,7 @@ if __name__ == "__main__":
             all_game_data = json.load(f)
 
         shots_df = create_shots_dataframe(all_game_data, team_abbr, year)
-        print(shots_df.head())
     
         # plot_shot_totals(shots_df, team_abbr, year)
     
-    plot_shot_heatmap(shots_df, team_abbr, year)
+    # plot_shot_heatmap(shots_df, team_abbr, year)
