@@ -206,10 +206,22 @@ def logistic_regression_model(X_train, y_train, X_test, y_test):
 
 if __name__ == "__main__":
 
+    base_data_dir = Path("../NHL_Play_By_Play/data")
+
+    run_model = False
+
+    if not run_model: 
+        df_2023 = load_season(2023, base_data_dir)
+        df_2023_cleaned = clean_data(df_2023)
+
+        shot_distance_histogram(df_2023_cleaned)
+        shot_angle_histogram(df_2023_cleaned)
+        plot_goal_rates(df_2023_cleaned)
+        goal_distance_histogram(df_2023_cleaned)
+        raise SystemExit
+
     load_dotenv()
     wandb.login()
-
-    base_data_dir = Path("../NHL_Play_By_Play/data")
 
     FEATURES = ['shot_distance', 'shot_angle']
     X_train, y_train, X_test, y_test = train_test_split_by_season(base_data_dir)
