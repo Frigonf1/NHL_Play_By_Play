@@ -174,6 +174,6 @@ def create_shots_dataframe(all_game_data: list, team_abbr: str, year: int) -> 'p
     shots_df = pd.DataFrame(shots_list)
 
     # Saving the dataframe to a CSV file for further analysis
-    shots_df.to_csv(f"data/shots_data_{team_abbr}_{year}_{year+1}.csv", index=False)
+    shots_df.to_csv(f"data/{year}_{year+1}/shots_data_{team_abbr}_{year}_{year+1}.csv", index=False)
 
     return shots_df

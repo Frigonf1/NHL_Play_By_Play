@@ -1,0 +1,63 @@
+_wandb:
+    value:
+        cli_version: 0.24.0
+        e:
+            33sundzxivqcr0kisej9it6vx85act9y:
+                codePath: shot_quality_model\model.py
+                codePathLocal: shot_quality_model\model.py
+                cpu_count: 10
+                cpu_count_logical: 12
+                disk:
+                    /:
+                        total: "489315889152"
+                        used: "362401615872"
+                email: francois.frigon@umontreal.ca
+                executable: C:\Users\franc\Documents\Projet_Hockey\NHL_Play_By_Play\.venv\Scripts\python.exe
+                git:
+                    commit: 26624bed7194343d42a6ff607c607817ad1b158f
+                    remote: https://github.com/Frigonf1/NHL_Play_By_Play.git
+                host: DellFrançois
+                memory:
+                    total: "16849293312"
+                os: Windows-11-10.0.26100-SP0
+                program: c:\Users\franc\Documents\Projet_Hockey\NHL_Play_By_Play\shot_quality_model\model.py
+                python: CPython 3.13.5
+                root: C:\Users\franc\Documents\Projet_Hockey\NHL_Play_By_Play
+                startedAt: "2026-01-23T05:02:24.195685Z"
+                writerId: 33sundzxivqcr0kisej9it6vx85act9y
+        m: []
+        python_version: 3.13.5
+        t:
+            "1":
+                - 5
+                - 53
+            "2":
+                - 5
+                - 53
+            "3":
+                - 2
+                - 16
+            "4": 3.13.5
+            "5": 0.24.0
+            "8":
+                - 3
+            "12": 0.24.0
+            "13": windows-amd64
+max_iter:
+    value: 1000
+model:
+    value: logistic_regression
+n_test_samples:
+    value: 238920
+n_train_samples:
+    value: 1293090
+test_season:
+    value: 2024
+train_seasons:
+    value:
+        - 2018
+        - 2019
+        - 2020
+        - 2021
+        - 2022
+        - 2023

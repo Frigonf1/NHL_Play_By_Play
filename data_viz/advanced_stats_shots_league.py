@@ -187,7 +187,7 @@ def compute_league_kde(year):
     for team in teams:
         team_shots = league_shots_df.loc[league_shots_df["team_abbr"] == team].copy()
 
-        team_json_path = DATA_DIR / f"nhl_play_by_play_{team}_{year}_{year+1}.json"
+        team_json_path = DATA_DIR / f"{year}_{year+1}" / f"nhl_play_by_play_{team}_{year}_{year+1}.json"
         if not team_json_path.exists():
             continue
 
