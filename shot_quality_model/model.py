@@ -210,8 +210,6 @@ if __name__ == "__main__":
     wandb.login()
 
     base_data_dir = Path("../NHL_Play_By_Play/data")
-    print(base_data_dir.resolve())
-    print((base_data_dir / "2018_2019").exists())
 
     FEATURES = ['shot_distance', 'shot_angle']
     X_train, y_train, X_test, y_test = train_test_split_by_season(base_data_dir)
@@ -219,8 +217,8 @@ if __name__ == "__main__":
     X_test = X_test[FEATURES]
 
     run = wandb.init(
-    entity="francois-frigon-universite-de-montreal",
-    project="NHL_shot_quality_logistic_regression_model",
+    entity=os.getenv("WANDB_ENTITY"),
+    project=os.getenv("WANDB_PROJECT"),
     config={
         "model": "logistic_regression",
         "max_iter": 1000,

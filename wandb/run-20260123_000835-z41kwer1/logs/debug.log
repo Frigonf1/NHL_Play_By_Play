@@ -1,0 +1,24 @@
+2026-01-23 00:08:35,488 INFO    MainThread:1932 [wandb_setup.py:_flush():81] Current SDK version is 0.24.0
+2026-01-23 00:08:35,488 INFO    MainThread:1932 [wandb_setup.py:_flush():81] Configure stats pid to 1932
+2026-01-23 00:08:35,488 INFO    MainThread:1932 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-01-23 00:08:35,489 INFO    MainThread:1932 [wandb_init.py:setup_run_log_directory():717] Logging user logs to C:\Users\franc\Documents\Projet_Hockey\NHL_Play_By_Play\wandb\run-20260123_000835-z41kwer1\logs\debug.log
+2026-01-23 00:08:35,489 INFO    MainThread:1932 [wandb_init.py:setup_run_log_directory():718] Logging internal logs to C:\Users\franc\Documents\Projet_Hockey\NHL_Play_By_Play\wandb\run-20260123_000835-z41kwer1\logs\debug-internal.log
+2026-01-23 00:08:35,489 INFO    MainThread:1932 [wandb_init.py:init():844] calling init triggers
+2026-01-23 00:08:35,489 INFO    MainThread:1932 [wandb_init.py:init():849] wandb.init called with sweep_config: {}
+config: {'model': 'logistic_regression', 'max_iter': 1000, 'train_seasons': [2018, 2019, 2020, 2021, 2022, 2023], 'test_season': 2024, 'n_train_samples': 1293090, 'n_test_samples': 238920, '_wandb': {}}
+2026-01-23 00:08:35,489 INFO    MainThread:1932 [wandb_init.py:init():892] starting backend
+2026-01-23 00:08:37,959 INFO    MainThread:1932 [wandb_init.py:init():895] sending inform_init request
+2026-01-23 00:08:38,024 INFO    MainThread:1932 [wandb_init.py:init():903] backend started and connected
+2026-01-23 00:08:38,066 INFO    MainThread:1932 [wandb_init.py:init():973] updated telemetry
+2026-01-23 00:08:38,119 INFO    MainThread:1932 [wandb_init.py:init():997] communicating run to backend with 90.0 second timeout
+2026-01-23 00:08:38,740 INFO    MainThread:1932 [wandb_init.py:init():1044] starting run threads in backend
+2026-01-23 00:08:38,934 INFO    MainThread:1932 [wandb_run.py:_console_start():2529] atexit reg
+2026-01-23 00:08:38,934 INFO    MainThread:1932 [wandb_run.py:_redirect():2377] redirect: wrap_raw
+2026-01-23 00:08:38,934 INFO    MainThread:1932 [wandb_run.py:_redirect():2446] Wrapping output streams.
+2026-01-23 00:08:38,934 INFO    MainThread:1932 [wandb_run.py:_redirect():2469] Redirects installed.
+2026-01-23 00:08:38,940 INFO    MainThread:1932 [wandb_init.py:init():1084] run started, returning control to user process
+2026-01-23 00:08:40,342 INFO    MainThread:1932 [wandb_run.py:_finish():2295] finishing run francois-frigon-universite-de-montreal/NHL_shot_quality_logistic_regression_model/z41kwer1
+2026-01-23 00:08:40,343 INFO    MainThread:1932 [wandb_run.py:_atexit_cleanup():2494] got exitcode: 0
+2026-01-23 00:08:40,343 INFO    MainThread:1932 [wandb_run.py:_restore():2476] restore
+2026-01-23 00:08:40,343 INFO    MainThread:1932 [wandb_run.py:_restore():2482] restore done
+2026-01-23 00:08:41,268 INFO    MainThread:1932 [wandb_run.py:_footer_sync_info():3870] logging synced files
