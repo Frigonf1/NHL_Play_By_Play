@@ -35,6 +35,7 @@ wandb/
 # Data files
 *.json
 *.csv
+data/
 
 # Images
 *.png
