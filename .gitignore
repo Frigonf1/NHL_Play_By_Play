@@ -29,6 +29,9 @@ site-packages/
 *.egg-info/
 *.orig
 
+# Experiment tracking 
+wandb/
+
 # Data files
 *.json
 *.csv
