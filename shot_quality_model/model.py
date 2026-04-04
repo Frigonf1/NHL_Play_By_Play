@@ -9,6 +9,17 @@ from sklearn.linear_model import LogisticRegression
 from dotenv import load_dotenv
 import os
 
+"""
+This module contains functions for loading, cleaning, and analyzing NHL shot data, 
+as well as training a logistic regression model to predict shot quality. 
+
+By setting run_model = False, you can generate exploratory visualizations of shot distance 
+and angle distributions, as well as goal rates by distance and angle, without training the model.
+
+By setting run_model = True, the module will load training and testing data by season, 
+train a logistic regression model, and log the results to Weights & Biases.
+"""
+
 def clean_data(df):
 
     # Keeping only relevant columns and dropping rows with missing values 
