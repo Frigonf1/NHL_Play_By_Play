@@ -9,13 +9,14 @@ from scipy.stats import gaussian_kde
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from nhlpy import NHLClient
+import sqlite3
 
 # On extrait les abbréviations des équipes de la ligue
-def get_league_team_abbrs(client):
-    teams = client.teams.teams()
-    teams_abbr = [team['abbr'] for team in teams]
-    return teams_abbr
+def get_league_team_abbrs(db_path: Path) -> list[str]:
+    conn = sqlite3.connect(db_path)
+    df = pd.read_sql_query("SELECT DISTINCT team_abbr FROM teams", conn)
+    conn.close()
+    return df["team_abbr"].tolist()
 
 # Fonction pour transformer les coordonnées des tirs
 def transform_coordinates(shots_df):
@@ -42,21 +43,19 @@ def transform_coordinates(shots_df):
     return df
 
 # On crée un DataFrame des tirs pour toute la ligue
-def create_league_shots_dataframe(year):
-    client = NHLClient()
-    teams_abbr = get_league_team_abbrs(client)
-    league_shots_df = pd.DataFrame()
-
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    DATA_DIR = BASE_DIR / "data"
-
-    for team in teams_abbr:
-        data_path = DATA_DIR/f"shots_data_{team}_{year}_{year+1}.csv"
-        team_shots_df = pd.read_csv(data_path)
-        team_shots_df = transform_coordinates(team_shots_df)
-        league_shots_df = pd.concat([league_shots_df, team_shots_df], ignore_index=True)
-        print(f"Added shots for team: {team}")
-    return league_shots_df
+def create_league_shots_dataframe(year: int, db_path: Path) -> pd.DataFrame:
+    import sqlite3
+    season = f"{year}-{year+1}"
+    conn = sqlite3.connect(db_path)
+    df = pd.read_sql_query("""
+        SELECT *
+        FROM shots
+        WHERE season = ?
+        AND shot_type_desc IN ('shot-on-goal', 'missed-shot', 'goal')
+        AND strength = 'even-strength'
+    """, conn, params=(season,))
+    conn.close()
+    return transform_coordinates(df)
 
 # Fonction pour calculer le temps total joué à 5v5
 def compute_team_5v5_seconds(
@@ -171,9 +170,9 @@ def kde_surface_shots_per_60(
     return X, Y, Z_60
 
 # Fonction principale pour calculer la KDE de la ligue 
-def compute_league_kde(year):
-    teams = get_league_team_abbrs(NHLClient())
-    league_shots_df = create_league_shots_dataframe(year)
+def compute_league_kde(year: int, db_path: Path):
+    teams = get_league_team_abbrs(db_path)
+    league_shots_df = create_league_shots_dataframe(year, db_path)
 
     team_5v5_seconds_dict = {}
     X_team_dict = {}
@@ -234,7 +233,7 @@ def compute_league_kde(year):
     }
 
 # Fonction pour charger ou calculer et mettre en cache les résultats 
-def load_or_compute_league_kde(year, force=False):
+def load_or_compute_league_kde(year: int, db_path: Path, force: bool = False):
     BASE_DIR = Path(__file__).resolve().parent.parent
     cache_dir = BASE_DIR / "data" / "cache"
     cache_dir.mkdir(exist_ok=True)
@@ -244,7 +243,7 @@ def load_or_compute_league_kde(year, force=False):
         with open(cache_path, "rb") as f:
             return pickle.load(f)
 
-    results = compute_league_kde(year)
+    results = compute_league_kde(year, db_path)
 
     with open(cache_path, "wb") as f:
         pickle.dump(results, f)
@@ -254,9 +253,12 @@ def load_or_compute_league_kde(year, force=False):
 
 # Main
 if __name__ == "__main__":
-    year = 2024
 
-    results = load_or_compute_league_kde(year)
+    year = 2024
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    db_path = BASE_DIR / "data" / "processed" / "sqlite" / "nhl_analytics.db"
+
+    results = load_or_compute_league_kde(year, db_path)
 
     valid_teams = results["valid_teams"]
     X_team_dict = results["X_team"]

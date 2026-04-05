@@ -37,6 +37,9 @@ wandb/
 *.csv
 data/
 
+# HTML files
+.html
+
 # Images
 *.png
 *.svg
