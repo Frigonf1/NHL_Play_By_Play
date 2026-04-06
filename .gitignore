@@ -37,6 +37,9 @@ wandb/
 *.csv
 data/
 
+# Specific file
+get_player_stats.py
+
 # HTML files
 .html
 
