@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - .env
+    environment:
+      # This tells your Python script where to find Redis inside the Docker network
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    ports:
+      - "8888:8888"  # For Jupyter
+
+  redis:
+    image: redis:alpine
+    container_name: nhl_redis_cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    # This ensures Redis saves data to the volume frequently
+    command: redis-server --save 60 1 --loglevel warning
+
+volumes:
+  redis_data:

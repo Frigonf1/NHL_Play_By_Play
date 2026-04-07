@@ -88,7 +88,7 @@ if __name__ == "__main__":
                 project=os.getenv("WANDB_PROJECT"),
                 entity=os.getenv("WANDB_ENTITY"),
                 name=run_name,
-                config={**config, "model": "random_forest", "train_seasons": [2018, 2019, 2020, 2021, 2022, 2023], "test_season": 2024},
+                config={**config, "model": "random_forest", "train_seasons": [2020, 2021, 2022, 2023], "test_season": 2024},
                 settings=wandb.Settings(init_timeout=300)
             ):
                 

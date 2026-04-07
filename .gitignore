@@ -36,6 +36,22 @@ wandb/
 *.json
 *.csv
 data/
+*.db
+*.sqlite
+
+# Python build/distribution
+build/
+dist/
+*.egg-info/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local Python version management
+.python-version
+
+# Byte-compiled files
+__pycache__/
 
 # Specific file
 get_player_stats.py

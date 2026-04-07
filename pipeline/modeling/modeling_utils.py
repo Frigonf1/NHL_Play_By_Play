@@ -1,11 +1,24 @@
 import pandas as pd
 import numpy as np
 import sqlite3
+import redis
+import pyarrow as pa
 from pathlib import Path
+import os
 
 """
 This module contains utility functions for data cleaning, feature engineering, and loading shot data for modeling.
 """
+
+try: 
+    host = os.getenv('REDIS_HOST', 'localhost')
+    r = redis.Redis(host=host, port=6379, db=0, socket_connect_timeout=2)
+    r.ping()
+    print("Connected to Redis server successfully. Caching enabled.")
+    REDIS_AVAILABLE = True
+except (redis.exceptions.ConnectionError, redis.TimeoutError): 
+    print("Warning: Redis server not available. Caching will be disabled.")
+    REDIS_AVAILABLE = False
 
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -42,24 +55,47 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
 def load_season(season_start: int, db_path: Path) -> pd.DataFrame:
     """Loads all shot data for a given season from the SQLite database."""
 
+    redis_key = f"nhl:season:{season_start}:{season_start + 1}:raw_shots"
+
+    if REDIS_AVAILABLE:
+        try:
+            cached_data = r.get(redis_key)
+            if cached_data:
+                print(f"Cache hit for season {season_start}-{season_start + 1}")
+                reader = pa.ipc.open_stream(pa.BufferReader(cached_data))
+                return reader.read_pandas()
+        except (redis.exceptions.ConnectionError, redis.TimeoutError):
+            print("Warning: Failed to retrieve data from Redis. Proceeding with database query.")
+
     season = f"{season_start}-{season_start + 1}"
     conn = sqlite3.connect(db_path)
     df = pd.read_sql_query("SELECT * FROM shots WHERE season = ?", conn, params=(season,))
     conn.close()
+
+    if REDIS_AVAILABLE and not df.empty:
+        try:
+            table = pa.Table.from_pandas(df)
+            sink = pa.BufferOutputStream()
+            with pa.ipc.new_stream(sink, table.schema) as writer:
+                writer.write_table(table)
+            r.set(redis_key, sink.getvalue().to_pybytes(), ex=3600)  # Cache for 1 hour
+            print(f"Cached data for season {season_start}-{season_start + 1} in Redis.")
+        except (redis.exceptions.ConnectionError, redis.TimeoutError):
+            print("Warning: Failed to cache data in Redis.")
 
     return df
 
 
 def train_test_split_by_season(db_path: Path):
     """
-    Loads and splits data into training (2018-2023) and testing (2024) sets.
+    Loads and splits data into training (2020-2023) and testing (2024) sets.
 
     - Empty net shots are filtered here after clean_data, keeping clean_data reusable
       for visualization purposes (where you may want to keep empty net shots)
     - is_empty_net is dropped from X after filtering since it's no longer informative
     """
 
-    train_seasons = [2018, 2019, 2020, 2021, 2022, 2023]
+    train_seasons = [2020, 2021, 2022, 2023]
     test_season = 2024
 
     train_dfs = [load_season(s, db_path) for s in train_seasons]

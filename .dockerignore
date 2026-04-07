@@ -1,0 +1,23 @@
+# Environments
+.venv/
+venv/
+__pycache__/
+.env
+
+# Data and Databases
+data/
+*.db
+*.csv
+*.json
+
+# Git and IDEs
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore

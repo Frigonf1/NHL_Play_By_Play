@@ -29,7 +29,7 @@ if __name__ == "__main__":
             teams_abbr = [team["abbr"] for team in teams]
             print(teams_abbr)
 
-    years = [2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    years = [2020, 2021, 2022, 2023, 2024]
 
     shots_list = []
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
             save_path.parent.mkdir(parents=True, exist_ok=True)
             print(f"Processing team: {team_abbr}")
             download_data(team_abbr, year, save_path, db_path)
-            # time.sleep(1)  # Add a delay to avoid hitting API rate limits
+            time.sleep(1)  # Add a delay to avoid hitting API rate limits
 
             with open(save_path, "r", encoding="utf-8") as f:
                 all_game_data = json.load(f)
