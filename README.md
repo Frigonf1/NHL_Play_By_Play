@@ -32,7 +32,7 @@ L'exploration préliminaire des données se trouve dans le dossier *notebooks*, 
 
  ## Comment exécuter le projet
 
- Le projet nécessite **Docker Desktop**, et optionnellemnt un compte **WandB** pour suivre les expériences. 
+ Le projet nécessite **Docker Desktop**, et optionnellement un compte **WandB** pour suivre les expériences. 
 
  1. **Cloner le projet** : `git clone https://github.com/Frigonf1/NHL_Play_By_Play.git`
 
