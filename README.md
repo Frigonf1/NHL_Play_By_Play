@@ -12,7 +12,7 @@
 
  ## Architecture
 
- Le pipeline d'exécution télécharge et transforme les données "play-by-play" en format JSON provenant de l'API de la LNH. 
+ Le pipeline d'exécution télécharge et transforme les données "play-by-play" de format JSON provenant de l'API de la LNH. 
  
 * **Ingestion des données** : `download_data.py` (saisons 2020-2025).
 
