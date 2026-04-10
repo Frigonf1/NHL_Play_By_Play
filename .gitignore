@@ -57,7 +57,7 @@ __pycache__/
 get_player_stats.py
 
 # HTML files
-.html
+*.html
 
 # Images
 *.png
